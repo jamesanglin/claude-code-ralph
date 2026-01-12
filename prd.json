@@ -163,11 +163,11 @@
       "title": "Add batch mode from file",
       "description": "Add a --file flag that reads names from a file (one per line) and greets/farewells each one.",
       "priority": 14,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet --file names.txt greets each name in the file", "passed": false },
-        { "text": "farewell --file names.txt farewells each name in the file", "passed": false },
-        { "text": "Error message shown if file doesn't exist", "passed": false }
+        { "text": "greet --file names.txt greets each name in the file", "passed": true },
+        { "text": "farewell --file names.txt farewells each name in the file", "passed": true },
+        { "text": "Error message shown if file doesn't exist", "passed": true }
       ]
     },
     {

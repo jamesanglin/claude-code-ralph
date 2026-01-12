@@ -37,6 +37,7 @@ show_help() {
     echo "  --random        Pick a random greeting style (Hello/Hi/Hey/Greetings)"
     echo "  --quiet         Suppress timestamp output"
     echo "  --delimiter S   Use custom separator S instead of ', ' (default: ', ')"
+    echo "  --file FILE     Read names from FILE (one per line) and greet/farewell each"
     echo ""
     echo "Examples:"
     echo "  ./hello.sh                  # Print 'Hello, RALPH!'"
@@ -68,14 +69,16 @@ log_message() {
 }
 
 greet() {
-    local name="$1"
-    shift
+    local name=""
     local count=1
     local uppercase=false
     local random=false
     local quiet=false
     local delimiter=", "
-    # Parse function arguments for --count, --uppercase, --random, --quiet, and --delimiter
+    local file=""
+    local remaining_args=()
+
+    # Parse all arguments
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --count)
@@ -98,11 +101,35 @@ greet() {
                 delimiter="$2"
                 shift 2
                 ;;
+            --file)
+                file="$2"
+                shift 2
+                ;;
             *)
+                if [[ -z "$name" ]]; then
+                    name="$1"
+                fi
                 shift
                 ;;
         esac
     done
+
+    # If --file is provided, read names from file and greet each
+    if [[ -n "$file" ]]; then
+        if [[ ! -f "$file" ]]; then
+            echo "Error: File '$file' not found" >&2
+            return 1
+        fi
+        while IFS= read -r line || [[ -n "$line" ]]; do
+            if [[ -n "$line" ]]; then
+                greet "$line" --count "$count" --delimiter "$delimiter" \
+                    $(if [[ "$uppercase" == "true" ]]; then echo "--uppercase"; fi) \
+                    $(if [[ "$random" == "true" ]]; then echo "--random"; fi) \
+                    $(if [[ "$quiet" == "true" ]]; then echo "--quiet"; fi)
+            fi
+        done < "$file"
+        return 0
+    fi
 
     local i
     for ((i=1; i<=count; i++)); do
@@ -133,13 +160,14 @@ greet() {
 }
 
 farewell() {
-    local name="$1"
-    shift
+    local name=""
     local count=1
     local uppercase=false
     local quiet=false
     local delimiter=", "
-    # Parse function arguments for --count, --uppercase, --quiet, and --delimiter
+    local file=""
+
+    # Parse all arguments
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --count)
@@ -158,11 +186,34 @@ farewell() {
                 delimiter="$2"
                 shift 2
                 ;;
+            --file)
+                file="$2"
+                shift 2
+                ;;
             *)
+                if [[ -z "$name" ]]; then
+                    name="$1"
+                fi
                 shift
                 ;;
         esac
     done
+
+    # If --file is provided, read names from file and farewell each
+    if [[ -n "$file" ]]; then
+        if [[ ! -f "$file" ]]; then
+            echo "Error: File '$file' not found" >&2
+            return 1
+        fi
+        while IFS= read -r line || [[ -n "$line" ]]; do
+            if [[ -n "$line" ]]; then
+                farewell "$line" --count "$count" --delimiter "$delimiter" \
+                    $(if [[ "$uppercase" == "true" ]]; then echo "--uppercase"; fi) \
+                    $(if [[ "$quiet" == "true" ]]; then echo "--quiet"; fi)
+            fi
+        done < "$file"
+        return 0
+    fi
 
     local i
     for ((i=1; i<=count; i++)); do

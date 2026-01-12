@@ -135,3 +135,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added --delimiter flag to greet and farewell, updated show_help), prd.json (updated story 13 status)
 - Notes: The flag takes a string argument (like --count) and defaults to ", " to maintain backward compatibility. Both greet and farewell functions now use the delimiter in their message construction.
 
+## Iteration 2026-01-11 (fourteenth iteration)
+- Completed: Story 14 - Add batch mode from file
+- Steps verified:
+  - [x] greet --file names.txt greets each name in the file
+  - [x] farewell --file names.txt farewells each name in the file
+  - [x] Error message shown if file doesn't exist
+- Learned: Added a `--file` flag to both greet and farewell functions that reads names from a file (one per line) and processes each one. Used `while IFS= read -r line || [[ -n "$line" ]]` to properly read each line including the last line even if it doesn't end with a newline. The `|| [[ -n "$line" ]]` handles the edge case of a file without a trailing newline. Recursively calls the same function for each name, passing along all other flags (--count, --uppercase, --quiet, --delimiter, --random for greet).
+- Files changed: hello.sh (added --file flag to greet and farewell, updated show_help), prd.json (updated story 14 status), names.txt (created for testing)
+- Notes: Changed argument parsing to collect the name separately from flags (no longer using `shift` immediately). This allows `--file` to be used without a positional name argument. Error handling outputs to stderr and returns exit code 1 when file is not found.
+
