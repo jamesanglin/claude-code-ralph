@@ -175,11 +175,11 @@
       "title": "Add JSON output mode",
       "description": "Add a --json flag that outputs the greeting/farewell as JSON instead of plain text.",
       "priority": 15,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet 'World' --json outputs valid JSON with type, name, message, and timestamp fields", "passed": false },
-        { "text": "farewell 'World' --json outputs valid JSON with type 'farewell'", "passed": false },
-        { "text": "JSON output can be piped to jq without errors", "passed": false }
+        { "text": "greet 'World' --json outputs valid JSON with type, name, message, and timestamp fields", "passed": true },
+        { "text": "farewell 'World' --json outputs valid JSON with type 'farewell'", "passed": true },
+        { "text": "JSON output can be piped to jq without errors", "passed": true }
       ]
     }
   ]

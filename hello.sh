@@ -38,6 +38,7 @@ show_help() {
     echo "  --quiet         Suppress timestamp output"
     echo "  --delimiter S   Use custom separator S instead of ', ' (default: ', ')"
     echo "  --file FILE     Read names from FILE (one per line) and greet/farewell each"
+    echo "  --json          Output as JSON with type, name, message, and timestamp fields"
     echo ""
     echo "Examples:"
     echo "  ./hello.sh                  # Print 'Hello, RALPH!'"
@@ -76,6 +77,7 @@ greet() {
     local quiet=false
     local delimiter=", "
     local file=""
+    local json=false
     local remaining_args=()
 
     # Parse all arguments
@@ -105,6 +107,10 @@ greet() {
                 file="$2"
                 shift 2
                 ;;
+            --json)
+                json=true
+                shift
+                ;;
             *)
                 if [[ -z "$name" ]]; then
                     name="$1"
@@ -125,7 +131,8 @@ greet() {
                 greet "$line" --count "$count" --delimiter "$delimiter" \
                     $(if [[ "$uppercase" == "true" ]]; then echo "--uppercase"; fi) \
                     $(if [[ "$random" == "true" ]]; then echo "--random"; fi) \
-                    $(if [[ "$quiet" == "true" ]]; then echo "--quiet"; fi)
+                    $(if [[ "$quiet" == "true" ]]; then echo "--quiet"; fi) \
+                    $(if [[ "$json" == "true" ]]; then echo "--json"; fi)
             fi
         done < "$file"
         return 0
@@ -148,7 +155,14 @@ greet() {
         if [[ "$uppercase" == "true" ]]; then
             message=$(echo "$message" | tr '[:lower:]' '[:upper:]')
         fi
-        if [[ "$NO_COLOR" == "true" ]]; then
+
+        # JSON output mode
+        if [[ "$json" == "true" ]]; then
+            # Escape special characters in strings for JSON
+            local json_name=$(echo "$name" | sed 's/\\/\\\\/g; s/"/\\"/g')
+            local json_message=$(echo "$message" | sed 's/\\/\\\\/g; s/"/\\"/g')
+            echo "{\"type\":\"greeting\",\"name\":\"${json_name}\",\"message\":\"${json_message}\",\"timestamp\":\"${timestamp}\"}"
+        elif [[ "$NO_COLOR" == "true" ]]; then
             echo "$message"
         else
             echo -e "${GREEN}${message}${RESET}"
@@ -166,6 +180,7 @@ farewell() {
     local quiet=false
     local delimiter=", "
     local file=""
+    local json=false
 
     # Parse all arguments
     while [[ $# -gt 0 ]]; do
@@ -190,6 +205,10 @@ farewell() {
                 file="$2"
                 shift 2
                 ;;
+            --json)
+                json=true
+                shift
+                ;;
             *)
                 if [[ -z "$name" ]]; then
                     name="$1"
@@ -209,7 +228,8 @@ farewell() {
             if [[ -n "$line" ]]; then
                 farewell "$line" --count "$count" --delimiter "$delimiter" \
                     $(if [[ "$uppercase" == "true" ]]; then echo "--uppercase"; fi) \
-                    $(if [[ "$quiet" == "true" ]]; then echo "--quiet"; fi)
+                    $(if [[ "$quiet" == "true" ]]; then echo "--quiet"; fi) \
+                    $(if [[ "$json" == "true" ]]; then echo "--json"; fi)
             fi
         done < "$file"
         return 0
@@ -217,11 +237,19 @@ farewell() {
 
     local i
     for ((i=1; i<=count; i++)); do
+        local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
         local message="Goodbye${delimiter}${name}! See you soon."
         if [[ "$uppercase" == "true" ]]; then
             message=$(echo "$message" | tr '[:lower:]' '[:upper:]')
         fi
-        if [[ "$NO_COLOR" == "true" ]]; then
+
+        # JSON output mode
+        if [[ "$json" == "true" ]]; then
+            # Escape special characters in strings for JSON
+            local json_name=$(echo "$name" | sed 's/\\/\\\\/g; s/"/\\"/g')
+            local json_message=$(echo "$message" | sed 's/\\/\\\\/g; s/"/\\"/g')
+            echo "{\"type\":\"farewell\",\"name\":\"${json_name}\",\"message\":\"${json_message}\",\"timestamp\":\"${timestamp}\"}"
+        elif [[ "$NO_COLOR" == "true" ]]; then
             echo "$message"
         else
             echo -e "${YELLOW}${message}${RESET}"

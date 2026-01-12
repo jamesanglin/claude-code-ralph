@@ -145,3 +145,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added --file flag to greet and farewell, updated show_help), prd.json (updated story 14 status), names.txt (created for testing)
 - Notes: Changed argument parsing to collect the name separately from flags (no longer using `shift` immediately). This allows `--file` to be used without a positional name argument. Error handling outputs to stderr and returns exit code 1 when file is not found.
 
+## Iteration 2026-01-11 (fifteenth iteration)
+- Completed: Story 15 - Add JSON output mode
+- Steps verified:
+  - [x] greet 'World' --json outputs valid JSON with type, name, message, and timestamp fields
+  - [x] farewell 'World' --json outputs valid JSON with type 'farewell'
+  - [x] JSON output can be piped to jq without errors
+- Learned: Added a `--json` flag to both greet and farewell functions that outputs structured JSON instead of plain text. The JSON includes type (greeting/farewell), name, message, and timestamp fields. Used sed to escape backslashes and double quotes in strings to ensure valid JSON output. The flag is passed through when using --file mode for batch processing.
+- Files changed: hello.sh (added --json flag to greet and farewell, updated show_help), prd.json (updated story 15 status)
+- Notes: JSON format is `{"type":"greeting|farewell","name":"...","message":"...","timestamp":"YYYY-MM-DD HH:MM:SS"}`. The message field contains the full formatted message (with or without timestamp based on --quiet flag, with uppercase if --uppercase is used). This allows downstream tools like jq to parse and process the output programmatically.
+
