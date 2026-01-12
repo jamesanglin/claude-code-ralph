@@ -1,0 +1,7 @@
+# RALPH Progress Log
+
+This file tracks learnings and progress across iterations.
+Each Claude session should append its findings here.
+
+---
+
