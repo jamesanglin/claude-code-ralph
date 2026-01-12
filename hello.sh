@@ -24,8 +24,11 @@ show_help() {
     echo "  --log        Log greetings and farewells to hello.log"
     echo ""
     echo "Functions (when sourced):"
-    echo "  greet NAME      Print a greeting with timestamp (green)"
-    echo "  farewell NAME   Print a farewell message (yellow)"
+    echo "  greet NAME [--count N]      Print a greeting with timestamp (green)"
+    echo "  farewell NAME [--count N]   Print a farewell message (yellow)"
+    echo ""
+    echo "Function Options:"
+    echo "  --count N    Repeat the greeting or farewell N times (default: 1)"
     echo ""
     echo "Examples:"
     echo "  ./hello.sh                  # Print 'Hello, RALPH!'"
@@ -55,29 +58,65 @@ log_message() {
 
 greet() {
     local name="$1"
-    local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
-    local message="Hello, ${name}! [${timestamp}]"
-    if [[ "$NO_COLOR" == "true" ]]; then
-        echo "$message"
-    else
-        echo -e "${GREEN}${message}${RESET}"
-    fi
-    if [[ "$LOG_ENABLED" == "true" ]]; then
-        log_message "GREET: Hello, ${name}!"
-    fi
+    shift
+    local count=1
+    # Parse function arguments for --count
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --count)
+                count="$2"
+                shift 2
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+
+    local i
+    for ((i=1; i<=count; i++)); do
+        local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+        local message="Hello, ${name}! [${timestamp}]"
+        if [[ "$NO_COLOR" == "true" ]]; then
+            echo "$message"
+        else
+            echo -e "${GREEN}${message}${RESET}"
+        fi
+        if [[ "$LOG_ENABLED" == "true" ]]; then
+            log_message "GREET: Hello, ${name}!"
+        fi
+    done
 }
 
 farewell() {
     local name="$1"
-    local message="Goodbye, ${name}! See you soon."
-    if [[ "$NO_COLOR" == "true" ]]; then
-        echo "$message"
-    else
-        echo -e "${YELLOW}${message}${RESET}"
-    fi
-    if [[ "$LOG_ENABLED" == "true" ]]; then
-        log_message "FAREWELL: Goodbye, ${name}!"
-    fi
+    shift
+    local count=1
+    # Parse function arguments for --count
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --count)
+                count="$2"
+                shift 2
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+
+    local i
+    for ((i=1; i<=count; i++)); do
+        local message="Goodbye, ${name}! See you soon."
+        if [[ "$NO_COLOR" == "true" ]]; then
+            echo "$message"
+        else
+            echo -e "${YELLOW}${message}${RESET}"
+        fi
+        if [[ "$LOG_ENABLED" == "true" ]]; then
+            log_message "FAREWELL: Goodbye, ${name}!"
+        fi
+    done
 }
 
 echo "Hello, RALPH!"

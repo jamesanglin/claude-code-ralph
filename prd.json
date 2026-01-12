@@ -85,6 +85,42 @@
         { "text": "Log entries include timestamp and message", "passed": true },
         { "text": "farewell with --log also logs to hello.log", "passed": true }
       ]
+    },
+    {
+      "id": "8",
+      "title": "Add count flag",
+      "description": "Add a --count N flag that repeats the greeting or farewell N times.",
+      "priority": 8,
+      "passes": true,
+      "steps": [
+        { "text": "greet 'World' --count 3 outputs the greeting 3 times", "passed": true },
+        { "text": "farewell 'World' --count 2 outputs the farewell 2 times", "passed": true },
+        { "text": "Default count is 1 when flag is not provided", "passed": true }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Add uppercase flag",
+      "description": "Add a --uppercase flag that outputs the greeting or farewell in all uppercase letters.",
+      "priority": 9,
+      "passes": false,
+      "steps": [
+        { "text": "greet 'World' --uppercase outputs 'HELLO, WORLD!'", "passed": false },
+        { "text": "farewell 'World' --uppercase outputs 'GOODBYE, WORLD! SEE YOU SOON.'", "passed": false },
+        { "text": "Flag works combined with other flags like --no-color", "passed": false }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Add version flag",
+      "description": "Add a --version flag that displays 'hello.sh version 1.0.0'.",
+      "priority": 10,
+      "passes": false,
+      "steps": [
+        { "text": "Running ./hello.sh --version displays 'hello.sh version 1.0.0'", "passed": false },
+        { "text": "Version flag exits immediately without running other commands", "passed": false },
+        { "text": "Help text mentions --version flag", "passed": false }
+      ]
     }
   ]
 }

@@ -75,3 +75,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added logging support), prd.json (updated story 7 status)
 - Notes: Log format is "[YYYY-MM-DD HH:MM:SS] GREET/FAREWELL: message". The log file is appended to (not overwritten), so multiple runs accumulate entries. Also updated show_help() to document the new --log flag.
 
+## Iteration 2026-01-11 (eighth iteration)
+- Completed: Story 8 - Add count flag
+- Steps verified:
+  - [x] greet 'World' --count 3 outputs the greeting 3 times
+  - [x] farewell 'World' --count 2 outputs the farewell 2 times
+  - [x] Default count is 1 when flag is not provided
+- Learned: Added per-function argument parsing using a while loop with case statement to handle `--count N`. Used `shift` to capture the first positional argument (name) and then parse remaining arguments. Implemented repetition using a bash C-style for loop: `for ((i=1; i<=count; i++))`. Set default count to 1 so existing behavior is preserved when flag is not provided.
+- Files changed: hello.sh (added --count flag to greet and farewell), prd.json (updated story 8 status)
+- Notes: The --count flag is parsed at the function level (not globally), so each function call can have its own count. Updated show_help() to document the new function option.
+
