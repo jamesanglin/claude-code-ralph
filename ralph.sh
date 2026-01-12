@@ -5,7 +5,9 @@
 # Spawns fresh Claude Code sessions to implement features from prd.json.
 # Each iteration gets a clean context window.
 #
-# Usage: ./ralph.sh
+# Usage:
+#   ./ralph.sh           # Interactive mode (prompts for permissions)
+#   ./ralph.sh --afk     # AFK mode (fully autonomous, no prompts)
 #
 # Requirements:
 #   - jq (for JSON parsing)
@@ -19,6 +21,34 @@ set -e
 MAX_ITERATIONS=${MAX_ITERATIONS:-50}
 MAX_NO_PROGRESS=${MAX_NO_PROGRESS:-3}
 SLEEP_BETWEEN=${SLEEP_BETWEEN:-2}
+AFK_MODE=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --afk)
+      AFK_MODE=true
+      shift
+      ;;
+    --help|-h)
+      echo "Usage: ./ralph.sh [--afk]"
+      echo ""
+      echo "Options:"
+      echo "  --afk    Run in AFK mode (fully autonomous, skips all permission prompts)"
+      echo ""
+      echo "Environment variables:"
+      echo "  MAX_ITERATIONS   Maximum loop iterations (default: 50)"
+      echo "  MAX_NO_PROGRESS  Exit after N iterations with no progress (default: 3)"
+      echo "  SLEEP_BETWEEN    Seconds between iterations (default: 2)"
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1"
+      echo "Use --help for usage"
+      exit 1
+      ;;
+  esac
+done
 
 # State
 no_progress_count=0
@@ -118,6 +148,9 @@ main() {
   log "Starting RALPH loop"
   log "Max iterations: $MAX_ITERATIONS"
   log "Incomplete stories: $(incomplete_count)"
+  if [ "$AFK_MODE" = true ]; then
+    warn "AFK MODE ENABLED - fully autonomous, no permission prompts"
+  fi
 
   # Create progress.txt if it doesn't exist
   if [ ! -f "progress.txt" ]; then
@@ -140,11 +173,15 @@ main() {
     before_prd=$(cat prd.json)
 
     # Run Claude with the prompt
-    # --print: output conversation to stdout
-    # --yes: auto-accept tool calls (be careful with this!)
     log "Spawning fresh Claude instance..."
 
-    if claude --print "$(build_prompt)"; then
+    local claude_args="--print"
+    if [ "$AFK_MODE" = true ]; then
+      # AFK mode: skip all permission prompts for fully autonomous operation
+      claude_args="$claude_args --dangerously-skip-permissions"
+    fi
+
+    if claude $claude_args "$(build_prompt)"; then
       log "Claude session completed"
     else
       warn "Claude session exited with error"
