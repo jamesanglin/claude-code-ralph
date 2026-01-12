@@ -103,11 +103,11 @@
       "title": "Add uppercase flag",
       "description": "Add a --uppercase flag that outputs the greeting or farewell in all uppercase letters.",
       "priority": 9,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet 'World' --uppercase outputs 'HELLO, WORLD!'", "passed": false },
-        { "text": "farewell 'World' --uppercase outputs 'GOODBYE, WORLD! SEE YOU SOON.'", "passed": false },
-        { "text": "Flag works combined with other flags like --no-color", "passed": false }
+        { "text": "greet 'World' --uppercase outputs 'HELLO, WORLD!'", "passed": true },
+        { "text": "farewell 'World' --uppercase outputs 'GOODBYE, WORLD! SEE YOU SOON.'", "passed": true },
+        { "text": "Flag works combined with other flags like --no-color", "passed": true }
       ]
     },
     {

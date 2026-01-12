@@ -85,3 +85,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added --count flag to greet and farewell), prd.json (updated story 8 status)
 - Notes: The --count flag is parsed at the function level (not globally), so each function call can have its own count. Updated show_help() to document the new function option.
 
+## Iteration 2026-01-11 (ninth iteration)
+- Completed: Story 9 - Add uppercase flag
+- Steps verified:
+  - [x] greet 'World' --uppercase outputs 'HELLO, WORLD!'
+  - [x] farewell 'World' --uppercase outputs 'GOODBYE, WORLD! SEE YOU SOON.'
+  - [x] Flag works combined with other flags like --no-color
+- Learned: macOS ships with bash 3.2 by default, which doesn't support the `${var^^}` syntax for uppercase conversion. Use `tr '[:lower:]' '[:upper:]'` instead for broader compatibility. The --uppercase flag is parsed at the function level like --count.
+- Files changed: hello.sh (added --uppercase flag to greet and farewell), prd.json (updated story 9 status)
+- Notes: Added local `uppercase` variable to both functions, used `tr` for case conversion. Updated show_help() to document the new function option. The flag can be combined with --count and --no-color.
+
