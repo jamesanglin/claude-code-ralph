@@ -25,3 +25,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added greet function), prd.json (updated story 2 status)
 - Notes: Added greet() function that takes a name parameter and outputs "Hello, {name}!". The original "Hello, RALPH!" echo is preserved at the end of the script.
 
+## Iteration 2026-01-11 (third iteration)
+- Completed: Story 3 - Add timestamp to greeting
+- Steps verified:
+  - [x] greet function includes timestamp in output
+  - [x] Timestamp format is human-readable
+  - [x] Running greet 'Test' shows current time
+- Learned: Use bash `date` command with format string for human-readable timestamps. Format `"+%Y-%m-%d %H:%M:%S"` gives ISO-style dates. Use command substitution `$(...)` to capture output into a variable.
+- Files changed: hello.sh (modified greet function), prd.json (updated story 3 status)
+- Notes: Modified greet() to include timestamp in format `Hello, {name}! [YYYY-MM-DD HH:MM:SS]`. Used local variable for timestamp to keep it clean.
+

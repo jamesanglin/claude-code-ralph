@@ -31,11 +31,11 @@
       "title": "Add timestamp to greeting",
       "description": "Modify the greet function to include the current timestamp in the output",
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet function includes timestamp in output", "passed": false },
-        { "text": "Timestamp format is human-readable", "passed": false },
-        { "text": "Running greet 'Test' shows current time", "passed": false }
+        { "text": "greet function includes timestamp in output", "passed": true },
+        { "text": "Timestamp format is human-readable", "passed": true },
+        { "text": "Running greet 'Test' shows current time", "passed": true }
       ]
     }
   ]

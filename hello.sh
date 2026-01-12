@@ -2,7 +2,8 @@
 
 greet() {
     local name="$1"
-    echo "Hello, ${name}!"
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+    echo "Hello, ${name}! [${timestamp}]"
 }
 
 echo "Hello, RALPH!"
