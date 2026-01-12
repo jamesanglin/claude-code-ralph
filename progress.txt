@@ -45,3 +45,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added farewell function), prd.json (updated story 4 status)
 - Notes: Added farewell() function that takes a name parameter and outputs "Goodbye, {name}! See you soon." Note that when sourcing the script to test functions, the "Hello, RALPH!" line at the end also executes.
 
+## Iteration 2026-01-11 (fifth iteration)
+- Completed: Story 5 - Add color support
+- Steps verified:
+  - [x] greet output is green when run in terminal
+  - [x] farewell output is yellow when run in terminal
+  - [x] Running with --no-color flag disables colors
+- Learned: ANSI escape codes for colors (green=\033[0;32m, yellow=\033[0;33m, reset=\033[0m). Use `echo -e` to interpret escape sequences. The NO_COLOR variable can be set via environment export or by passing --no-color when sourcing the script.
+- Files changed: hello.sh (added color support), prd.json (updated story 5 status)
+- Notes: Added GREEN, YELLOW, and RESET color constants. Added NO_COLOR variable with argument parsing for --no-color flag. Modified greet() to output in green and farewell() to output in yellow, with conditional logic to disable colors when NO_COLOR=true.
+

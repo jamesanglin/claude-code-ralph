@@ -55,11 +55,11 @@
       "title": "Add color support",
       "description": "Add color output support to hello.sh. Greetings should be green, farewells should be yellow. Add a --no-color flag to disable colors.",
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet output is green when run in terminal", "passed": false },
-        { "text": "farewell output is yellow when run in terminal", "passed": false },
-        { "text": "Running with --no-color flag disables colors", "passed": false }
+        { "text": "greet output is green when run in terminal", "passed": true },
+        { "text": "farewell output is yellow when run in terminal", "passed": true },
+        { "text": "Running with --no-color flag disables colors", "passed": true }
       ]
     }
   ]
