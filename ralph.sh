@@ -74,12 +74,19 @@ error() {
 
 # Check dependencies
 check_deps() {
+  local script_dir
+  script_dir="$(cd "$(dirname "$0")" && pwd)"
+
   if ! command -v jq &> /dev/null; then
     error "jq is required but not installed. Install with: brew install jq"
     exit 1
   fi
   if ! command -v claude &> /dev/null; then
     error "claude CLI is required but not installed."
+    exit 1
+  fi
+  if [ ! -f "$script_dir/ralph-prompt.md" ]; then
+    error "ralph-prompt.md not found. It should be in the same directory as ralph.sh"
     exit 1
   fi
   if [ ! -f "prd.json" ]; then
@@ -114,31 +121,17 @@ next_story_id() {
 build_prompt() {
   local story_id
   story_id=$(next_story_id)
+  local script_dir
+  script_dir="$(cd "$(dirname "$0")" && pwd)"
+  local prompt_file="$script_dir/ralph-prompt.md"
 
-  cat <<EOF
-You are working on a project using the RALPH method.
+  if [ ! -f "$prompt_file" ]; then
+    error "ralph-prompt.md not found at $prompt_file"
+    exit 1
+  fi
 
-## Your Task
-Read prd.json and find story ID "$story_id". Implement ONLY that story.
-
-## Instructions
-1. Read CLAUDE.md for project context and conventions
-2. Read progress.txt for learnings from previous iterations
-3. Implement the story - write the code, tests if appropriate
-4. When the story is complete and working:
-   - Update prd.json: set "passes": true for story "$story_id"
-   - Append to progress.txt with what you learned
-   - Commit all changes with a descriptive message
-5. If you get stuck or blocked:
-   - Document the blocker in progress.txt
-   - Still commit what you have
-   - The next iteration will try to resolve it
-
-## Important
-- Focus on ONE story only
-- Make small, working increments
-- Commit your work before finishing
-EOF
+  # Read template and substitute story ID
+  sed "s/{{STORY_ID}}/$story_id/g" "$prompt_file"
 }
 
 # Main loop
