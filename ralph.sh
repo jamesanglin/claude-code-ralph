@@ -175,13 +175,39 @@ main() {
     # Run Claude with the prompt
     log "Spawning fresh Claude instance..."
 
-    local claude_args="--print"
     if [ "$AFK_MODE" = true ]; then
-      # AFK mode: skip all permission prompts for fully autonomous operation
-      claude_args="$claude_args --dangerously-skip-permissions"
+      # AFK mode: stream JSON for real-time visibility, skip all prompts
+      claude --print \
+        --verbose \
+        --output-format stream-json \
+        --dangerously-skip-permissions \
+        "$(build_prompt)" 2>&1 | while IFS= read -r line; do
+        # Extract text content from assistant messages
+        text=$(echo "$line" | jq -r '
+          select(.type == "assistant")
+          | .message.content[]?
+          | select(.type == "text")
+          | .text
+        ' 2>/dev/null)
+        [ -n "$text" ] && echo "$text" || true
+
+        # Show tool usage
+        tool=$(echo "$line" | jq -r '
+          select(.type == "assistant")
+          | .message.content[]?
+          | select(.type == "tool_use")
+          | "[\(.name)]"
+        ' 2>/dev/null)
+        [ -n "$tool" ] && echo -e "${YELLOW}$tool${NC}" || true
+      done || true
+      result=${PIPESTATUS[0]}
+    else
+      # Normal mode: fully interactive with permission prompts
+      claude "$(build_prompt)"
+      result=$?
     fi
 
-    if claude $claude_args "$(build_prompt)"; then
+    if [ $result -eq 0 ]; then
       log "Claude session completed"
     else
       warn "Claude session exited with error"
