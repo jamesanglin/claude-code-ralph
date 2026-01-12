@@ -22,6 +22,14 @@ RALPH enables AI-driven feature implementation through an iterative, story-drive
 ./ralph.sh --afk
 ```
 
+### Interactive Mode (Default)
+
+In normal interactive mode, RALPH spawns a Claude Code session and waits for it to complete. The shell loop pauses while Claude is active, allowing you to interact with Claude, approve permissions, and guide the implementation. Once you exit the Claude session (e.g., with `/exit` or Ctrl+C), control returns to the RALPH loop, which checks for progress and spawns a new session for the next story.
+
+### AFK Mode
+
+With `--afk`, RALPH runs fully autonomously using Claude's `--dangerously-skip-permissions` flag. No user interaction is required—Claude will implement features, commit changes, and move through stories without prompts.
+
 ## How It Works
 
 1. RALPH reads `prd.json` for incomplete stories (where `passes == false`)
