@@ -7,11 +7,11 @@
       "title": "Create hello world script",
       "description": "Create a simple hello.sh script that prints 'Hello, RALPH!'",
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "hello.sh file exists", "passed": false },
-        { "text": "Script is executable (chmod +x)", "passed": false },
-        { "text": "Running ./hello.sh prints 'Hello, RALPH!'", "passed": false }
+        { "text": "hello.sh file exists", "passed": true },
+        { "text": "Script is executable (chmod +x)", "passed": true },
+        { "text": "Running ./hello.sh prints 'Hello, RALPH!'", "passed": true }
       ]
     },
     {
