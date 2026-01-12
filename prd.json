@@ -19,11 +19,11 @@
       "title": "Add greeting function",
       "description": "Add a greet() function to hello.sh that takes a name parameter and prints 'Hello, {name}!'",
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet() function exists in hello.sh", "passed": false },
-        { "text": "greet 'World' outputs 'Hello, World!'", "passed": false },
-        { "text": "greet 'Alice' outputs 'Hello, Alice!'", "passed": false }
+        { "text": "greet() function exists in hello.sh", "passed": true },
+        { "text": "greet 'World' outputs 'Hello, World!'", "passed": true },
+        { "text": "greet 'Alice' outputs 'Hello, Alice!'", "passed": true }
       ]
     },
     {

@@ -15,3 +15,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (created), prd.json (updated passes/passed status)
 - Notes: Simple hello world implementation. Script just echoes the required greeting.
 
+## Iteration 2026-01-11 (second iteration)
+- Completed: Story 2 - Add greeting function
+- Steps verified:
+  - [x] greet() function exists in hello.sh
+  - [x] greet 'World' outputs 'Hello, World!'
+  - [x] greet 'Alice' outputs 'Hello, Alice!'
+- Learned: Bash functions use `local` for local variables, parameter accessed via $1. Source the script to make functions available in current shell for testing.
+- Files changed: hello.sh (added greet function), prd.json (updated story 2 status)
+- Notes: Added greet() function that takes a name parameter and outputs "Hello, {name}!". The original "Hello, RALPH!" echo is preserved at the end of the script.
+
