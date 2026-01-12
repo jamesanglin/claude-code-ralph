@@ -55,3 +55,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added color support), prd.json (updated story 5 status)
 - Notes: Added GREEN, YELLOW, and RESET color constants. Added NO_COLOR variable with argument parsing for --no-color flag. Modified greet() to output in green and farewell() to output in yellow, with conditional logic to disable colors when NO_COLOR=true.
 
+## Iteration 2026-01-11 (sixth iteration)
+- Completed: Story 6 - Add help command
+- Steps verified:
+  - [x] Running ./hello.sh --help displays usage information
+  - [x] Help text lists greet and farewell functions
+  - [x] Help text mentions --no-color flag
+- Learned: Added a show_help() function to display usage info. Extended the existing argument parsing loop to check for --help flag in addition to --no-color. Used `exit 0` after displaying help to prevent the default "Hello, RALPH!" from also being printed.
+- Files changed: hello.sh (added show_help function and --help argument handling), prd.json (updated story 6 status)
+- Notes: The help includes usage syntax, options list, available functions (greet/farewell with descriptions), and practical examples showing how to source the script for function usage.
+

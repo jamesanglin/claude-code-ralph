@@ -61,6 +61,30 @@
         { "text": "farewell output is yellow when run in terminal", "passed": true },
         { "text": "Running with --no-color flag disables colors", "passed": true }
       ]
+    },
+    {
+      "id": "6",
+      "title": "Add help command",
+      "description": "Add a --help flag to hello.sh that displays usage information showing all available functions and flags.",
+      "priority": 6,
+      "passes": true,
+      "steps": [
+        { "text": "Running ./hello.sh --help displays usage information", "passed": true },
+        { "text": "Help text lists greet and farewell functions", "passed": true },
+        { "text": "Help text mentions --no-color flag", "passed": true }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Add logging to file",
+      "description": "Add a --log flag that appends all greetings and farewells to a hello.log file with timestamps.",
+      "priority": 7,
+      "passes": false,
+      "steps": [
+        { "text": "Running greet with --log creates/appends to hello.log", "passed": false },
+        { "text": "Log entries include timestamp and message", "passed": false },
+        { "text": "farewell with --log also logs to hello.log", "passed": false }
+      ]
     }
   ]
 }
