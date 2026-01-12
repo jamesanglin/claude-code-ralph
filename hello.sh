@@ -35,6 +35,7 @@ show_help() {
     echo "  --count N    Repeat the greeting or farewell N times (default: 1)"
     echo "  --uppercase  Output the message in all uppercase letters"
     echo "  --random     Pick a random greeting style (Hello/Hi/Hey/Greetings)"
+    echo "  --quiet      Suppress timestamp output"
     echo ""
     echo "Examples:"
     echo "  ./hello.sh                  # Print 'Hello, RALPH!'"
@@ -71,7 +72,8 @@ greet() {
     local count=1
     local uppercase=false
     local random=false
-    # Parse function arguments for --count, --uppercase, and --random
+    local quiet=false
+    # Parse function arguments for --count, --uppercase, --random, and --quiet
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --count)
@@ -84,6 +86,10 @@ greet() {
                 ;;
             --random)
                 random=true
+                shift
+                ;;
+            --quiet)
+                quiet=true
                 shift
                 ;;
             *)
@@ -100,7 +106,12 @@ greet() {
             local greetings=("Hello" "Hi" "Hey" "Greetings")
             greeting="${greetings[$RANDOM % 4]}"
         fi
-        local message="${greeting}, ${name}! [${timestamp}]"
+        local message
+        if [[ "$quiet" == "true" ]]; then
+            message="${greeting}, ${name}!"
+        else
+            message="${greeting}, ${name}! [${timestamp}]"
+        fi
         if [[ "$uppercase" == "true" ]]; then
             message=$(echo "$message" | tr '[:lower:]' '[:upper:]')
         fi
@@ -120,7 +131,8 @@ farewell() {
     shift
     local count=1
     local uppercase=false
-    # Parse function arguments for --count and --uppercase
+    local quiet=false
+    # Parse function arguments for --count, --uppercase, and --quiet
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --count)
@@ -129,6 +141,10 @@ farewell() {
                 ;;
             --uppercase)
                 uppercase=true
+                shift
+                ;;
+            --quiet)
+                quiet=true
                 shift
                 ;;
             *)

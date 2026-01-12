@@ -115,3 +115,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added --random flag to greet function, updated show_help), prd.json (updated story 11 status)
 - Notes: The --random flag only affects the greet function (not farewell) as per the requirements. The flag is parsed at the function level like --count and --uppercase. Testing confirmed all four greeting styles appear with roughly equal frequency.
 
+## Iteration 2026-01-11 (twelfth iteration)
+- Completed: Story 12 - Add quiet mode
+- Steps verified:
+  - [x] greet 'World' --quiet outputs greeting without timestamp
+  - [x] farewell 'World' --quiet outputs farewell without timestamp
+  - [x] Help text documents the --quiet flag
+- Learned: The --quiet flag follows the same pattern as other function-level flags (--count, --uppercase, --random). The greet function normally includes a timestamp `[YYYY-MM-DD HH:MM:SS]` which is now conditionally omitted when --quiet is true. The farewell function already didn't include a timestamp, but the flag is added for consistency and future-proofing.
+- Files changed: hello.sh (added --quiet flag to greet and farewell, updated show_help), prd.json (updated story 12 status)
+- Notes: Implementation was straightforward following established patterns. Used a conditional to build the message string with or without timestamp based on the quiet flag value.
+

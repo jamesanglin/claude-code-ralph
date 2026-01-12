@@ -139,11 +139,11 @@
       "title": "Add quiet mode",
       "description": "Add a --quiet flag that suppresses timestamp output even when timestamps are normally shown.",
       "priority": 12,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet 'World' --quiet outputs greeting without timestamp", "passed": false },
-        { "text": "farewell 'World' --quiet outputs farewell without timestamp", "passed": false },
-        { "text": "Help text documents the --quiet flag", "passed": false }
+        { "text": "greet 'World' --quiet outputs greeting without timestamp", "passed": true },
+        { "text": "farewell 'World' --quiet outputs farewell without timestamp", "passed": true },
+        { "text": "Help text documents the --quiet flag", "passed": true }
       ]
     },
     {
