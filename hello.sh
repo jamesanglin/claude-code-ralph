@@ -6,4 +6,9 @@ greet() {
     echo "Hello, ${name}! [${timestamp}]"
 }
 
+farewell() {
+    local name="$1"
+    echo "Goodbye, ${name}! See you soon."
+}
+
 echo "Hello, RALPH!"

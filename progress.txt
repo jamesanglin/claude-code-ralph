@@ -35,3 +35,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (modified greet function), prd.json (updated story 3 status)
 - Notes: Modified greet() to include timestamp in format `Hello, {name}! [YYYY-MM-DD HH:MM:SS]`. Used local variable for timestamp to keep it clean.
 
+## Iteration 2026-01-11 (fourth iteration)
+- Completed: Story 4 - Add farewell function
+- Steps verified:
+  - [x] farewell() function exists in hello.sh
+  - [x] farewell 'World' outputs 'Goodbye, World! See you soon.'
+  - [x] farewell 'Alice' outputs 'Goodbye, Alice! See you soon.'
+- Learned: Following the existing pattern from greet() made implementation straightforward. The farewell function doesn't need a timestamp (per the requirements), keeping it simpler than greet.
+- Files changed: hello.sh (added farewell function), prd.json (updated story 4 status)
+- Notes: Added farewell() function that takes a name parameter and outputs "Goodbye, {name}! See you soon." Note that when sourcing the script to test functions, the "Hello, RALPH!" line at the end also executes.
+

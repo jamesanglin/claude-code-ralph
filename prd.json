@@ -37,6 +37,30 @@
         { "text": "Timestamp format is human-readable", "passed": true },
         { "text": "Running greet 'Test' shows current time", "passed": true }
       ]
+    },
+    {
+      "id": "4",
+      "title": "Add farewell function",
+      "description": "Add a farewell() function to hello.sh that takes a name parameter and prints 'Goodbye, {name}! See you soon.'",
+      "priority": 4,
+      "passes": true,
+      "steps": [
+        { "text": "farewell() function exists in hello.sh", "passed": true },
+        { "text": "farewell 'World' outputs 'Goodbye, World! See you soon.'", "passed": true },
+        { "text": "farewell 'Alice' outputs 'Goodbye, Alice! See you soon.'", "passed": true }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Add color support",
+      "description": "Add color output support to hello.sh. Greetings should be green, farewells should be yellow. Add a --no-color flag to disable colors.",
+      "priority": 5,
+      "passes": false,
+      "steps": [
+        { "text": "greet output is green when run in terminal", "passed": false },
+        { "text": "farewell output is yellow when run in terminal", "passed": false },
+        { "text": "Running with --no-color flag disables colors", "passed": false }
+      ]
     }
   ]
 }
