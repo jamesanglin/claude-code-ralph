@@ -79,11 +79,11 @@
       "title": "Add logging to file",
       "description": "Add a --log flag that appends all greetings and farewells to a hello.log file with timestamps.",
       "priority": 7,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "Running greet with --log creates/appends to hello.log", "passed": false },
-        { "text": "Log entries include timestamp and message", "passed": false },
-        { "text": "farewell with --log also logs to hello.log", "passed": false }
+        { "text": "Running greet with --log creates/appends to hello.log", "passed": true },
+        { "text": "Log entries include timestamp and message", "passed": true },
+        { "text": "farewell with --log also logs to hello.log", "passed": true }
       ]
     }
   ]

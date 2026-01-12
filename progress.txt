@@ -65,3 +65,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added show_help function and --help argument handling), prd.json (updated story 6 status)
 - Notes: The help includes usage syntax, options list, available functions (greet/farewell with descriptions), and practical examples showing how to source the script for function usage.
 
+## Iteration 2026-01-11 (seventh iteration)
+- Completed: Story 7 - Add logging to file
+- Steps verified:
+  - [x] Running greet with --log creates/appends to hello.log
+  - [x] Log entries include timestamp and message
+  - [x] farewell with --log also logs to hello.log
+- Learned: Added a LOG_ENABLED variable (default false) and LOG_FILE constant ("hello.log"). Extended the argument parsing loop to check for --log flag. Created a log_message() helper function that appends timestamped entries to the log file using >> redirection. Updated both greet() and farewell() functions to call log_message() when LOG_ENABLED is true.
+- Files changed: hello.sh (added logging support), prd.json (updated story 7 status)
+- Notes: Log format is "[YYYY-MM-DD HH:MM:SS] GREET/FAREWELL: message". The log file is appended to (not overwritten), so multiple runs accumulate entries. Also updated show_help() to document the new --log flag.
+

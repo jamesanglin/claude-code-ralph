@@ -8,6 +8,10 @@ RESET='\033[0m'
 # Color support (can be disabled with --no-color flag)
 NO_COLOR=${NO_COLOR:-false}
 
+# Logging support (enabled with --log flag)
+LOG_ENABLED=${LOG_ENABLED:-false}
+LOG_FILE="hello.log"
+
 # Display help information
 show_help() {
     echo "Usage: ./hello.sh [OPTIONS]"
@@ -17,6 +21,7 @@ show_help() {
     echo "Options:"
     echo "  --help       Display this help message"
     echo "  --no-color   Disable colored output"
+    echo "  --log        Log greetings and farewells to hello.log"
     echo ""
     echo "Functions (when sourced):"
     echo "  greet NAME      Print a greeting with timestamp (green)"
@@ -36,8 +41,17 @@ for arg in "$@"; do
     elif [[ "$arg" == "--help" ]]; then
         show_help
         exit 0
+    elif [[ "$arg" == "--log" ]]; then
+        LOG_ENABLED=true
     fi
 done
+
+# Log a message to the log file
+log_message() {
+    local message="$1"
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+    echo "[${timestamp}] ${message}" >> "$LOG_FILE"
+}
 
 greet() {
     local name="$1"
@@ -48,6 +62,9 @@ greet() {
     else
         echo -e "${GREEN}${message}${RESET}"
     fi
+    if [[ "$LOG_ENABLED" == "true" ]]; then
+        log_message "GREET: Hello, ${name}!"
+    fi
 }
 
 farewell() {
@@ -57,6 +74,9 @@ farewell() {
         echo "$message"
     else
         echo -e "${YELLOW}${message}${RESET}"
+    fi
+    if [[ "$LOG_ENABLED" == "true" ]]; then
+        log_message "FAREWELL: Goodbye, ${name}!"
     fi
 }
 
