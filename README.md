@@ -95,6 +95,10 @@ Stories in `prd.json` follow this structure:
 MAX_ITERATIONS=100 MAX_NO_PROGRESS=5 ./ralph.sh --afk
 ```
 
+## Credits
+
+Inspired by [Tips for AI Coding with Ralph Wiggum](https://www.aihero.dev/tips-for-ai-coding-with-ralph-wiggum) from AI Hero.
+
 ## License
 
 MIT
