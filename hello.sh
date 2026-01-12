@@ -12,6 +12,9 @@ NO_COLOR=${NO_COLOR:-false}
 LOG_ENABLED=${LOG_ENABLED:-false}
 LOG_FILE="hello.log"
 
+# Version
+VERSION="1.0.0"
+
 # Display help information
 show_help() {
     echo "Usage: ./hello.sh [OPTIONS]"
@@ -20,6 +23,7 @@ show_help() {
     echo ""
     echo "Options:"
     echo "  --help       Display this help message"
+    echo "  --version    Display version information"
     echo "  --no-color   Disable colored output"
     echo "  --log        Log greetings and farewells to hello.log"
     echo ""
@@ -44,6 +48,9 @@ for arg in "$@"; do
         NO_COLOR=true
     elif [[ "$arg" == "--help" ]]; then
         show_help
+        exit 0
+    elif [[ "$arg" == "--version" ]]; then
+        echo "hello.sh version ${VERSION}"
         exit 0
     elif [[ "$arg" == "--log" ]]; then
         LOG_ENABLED=true

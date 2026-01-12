@@ -95,3 +95,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added --uppercase flag to greet and farewell), prd.json (updated story 9 status)
 - Notes: Added local `uppercase` variable to both functions, used `tr` for case conversion. Updated show_help() to document the new function option. The flag can be combined with --count and --no-color.
 
+## Iteration 2026-01-11 (tenth iteration)
+- Completed: Story 10 - Add version flag
+- Steps verified:
+  - [x] Running ./hello.sh --version displays 'hello.sh version 1.0.0'
+  - [x] Version flag exits immediately without running other commands
+  - [x] Help text mentions --version flag
+- Learned: Following the established pattern from --help flag made implementation straightforward. Added a VERSION constant at the top of the script for easy maintenance. The `exit 0` ensures the script exits cleanly before reaching the default "Hello, RALPH!" output.
+- Files changed: hello.sh (added VERSION constant, --version flag handler, updated show_help), prd.json (updated story 10 status)
+- Notes: The --version flag is handled in the same argument parsing loop as --help and --no-color. Version string is stored in a constant to make future updates easier.
+

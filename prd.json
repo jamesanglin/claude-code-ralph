@@ -115,11 +115,11 @@
       "title": "Add version flag",
       "description": "Add a --version flag that displays 'hello.sh version 1.0.0'.",
       "priority": 10,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "Running ./hello.sh --version displays 'hello.sh version 1.0.0'", "passed": false },
-        { "text": "Version flag exits immediately without running other commands", "passed": false },
-        { "text": "Help text mentions --version flag", "passed": false }
+        { "text": "Running ./hello.sh --version displays 'hello.sh version 1.0.0'", "passed": true },
+        { "text": "Version flag exits immediately without running other commands", "passed": true },
+        { "text": "Help text mentions --version flag", "passed": true }
       ]
     }
   ]
