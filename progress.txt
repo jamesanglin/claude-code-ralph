@@ -105,3 +105,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added VERSION constant, --version flag handler, updated show_help), prd.json (updated story 10 status)
 - Notes: The --version flag is handled in the same argument parsing loop as --help and --no-color. Version string is stored in a constant to make future updates easier.
 
+## Iteration 2026-01-11 (eleventh iteration)
+- Completed: Story 11 - Add random greeting mode
+- Steps verified:
+  - [x] greet 'World' --random outputs one of: 'Hello, World!', 'Hi, World!', 'Hey, World!', or 'Greetings, World!'
+  - [x] Running multiple times with --random produces varied output
+  - [x] Help text documents the --random flag
+- Learned: Used bash `$RANDOM` variable with modulo 4 to select from an array of greeting styles. The `$RANDOM` variable provides a pseudo-random integer between 0 and 32767, and array indexing with `${greetings[$RANDOM % 4]}` gives even distribution across the four options.
+- Files changed: hello.sh (added --random flag to greet function, updated show_help), prd.json (updated story 11 status)
+- Notes: The --random flag only affects the greet function (not farewell) as per the requirements. The flag is parsed at the function level like --count and --uppercase. Testing confirmed all four greeting styles appear with roughly equal frequency.
+

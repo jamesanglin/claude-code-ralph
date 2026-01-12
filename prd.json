@@ -121,6 +121,66 @@
         { "text": "Version flag exits immediately without running other commands", "passed": true },
         { "text": "Help text mentions --version flag", "passed": true }
       ]
+    },
+    {
+      "id": "11",
+      "title": "Add random greeting mode",
+      "description": "Add a --random flag that picks a random greeting style (Hello/Hi/Hey/Greetings) instead of always using 'Hello'.",
+      "priority": 11,
+      "passes": true,
+      "steps": [
+        { "text": "greet 'World' --random outputs one of: 'Hello, World!', 'Hi, World!', 'Hey, World!', or 'Greetings, World!'", "passed": true },
+        { "text": "Running multiple times with --random produces varied output", "passed": true },
+        { "text": "Help text documents the --random flag", "passed": true }
+      ]
+    },
+    {
+      "id": "12",
+      "title": "Add quiet mode",
+      "description": "Add a --quiet flag that suppresses timestamp output even when timestamps are normally shown.",
+      "priority": 12,
+      "passes": false,
+      "steps": [
+        { "text": "greet 'World' --quiet outputs greeting without timestamp", "passed": false },
+        { "text": "farewell 'World' --quiet outputs farewell without timestamp", "passed": false },
+        { "text": "Help text documents the --quiet flag", "passed": false }
+      ]
+    },
+    {
+      "id": "13",
+      "title": "Add custom delimiter",
+      "description": "Add a --delimiter flag that changes the comma separator to a custom string. Default is ', '.",
+      "priority": 13,
+      "passes": false,
+      "steps": [
+        { "text": "greet 'World' --delimiter ' - ' outputs 'Hello - World!'", "passed": false },
+        { "text": "farewell 'World' --delimiter ': ' outputs 'Goodbye: World! See you soon.'", "passed": false },
+        { "text": "Default delimiter remains ', ' when flag is not used", "passed": false }
+      ]
+    },
+    {
+      "id": "14",
+      "title": "Add batch mode from file",
+      "description": "Add a --file flag that reads names from a file (one per line) and greets/farewells each one.",
+      "priority": 14,
+      "passes": false,
+      "steps": [
+        { "text": "greet --file names.txt greets each name in the file", "passed": false },
+        { "text": "farewell --file names.txt farewells each name in the file", "passed": false },
+        { "text": "Error message shown if file doesn't exist", "passed": false }
+      ]
+    },
+    {
+      "id": "15",
+      "title": "Add JSON output mode",
+      "description": "Add a --json flag that outputs the greeting/farewell as JSON instead of plain text.",
+      "priority": 15,
+      "passes": false,
+      "steps": [
+        { "text": "greet 'World' --json outputs valid JSON with type, name, message, and timestamp fields", "passed": false },
+        { "text": "farewell 'World' --json outputs valid JSON with type 'farewell'", "passed": false },
+        { "text": "JSON output can be piped to jq without errors", "passed": false }
+      ]
     }
   ]
 }

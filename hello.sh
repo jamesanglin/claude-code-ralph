@@ -34,6 +34,7 @@ show_help() {
     echo "Function Options:"
     echo "  --count N    Repeat the greeting or farewell N times (default: 1)"
     echo "  --uppercase  Output the message in all uppercase letters"
+    echo "  --random     Pick a random greeting style (Hello/Hi/Hey/Greetings)"
     echo ""
     echo "Examples:"
     echo "  ./hello.sh                  # Print 'Hello, RALPH!'"
@@ -69,7 +70,8 @@ greet() {
     shift
     local count=1
     local uppercase=false
-    # Parse function arguments for --count and --uppercase
+    local random=false
+    # Parse function arguments for --count, --uppercase, and --random
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --count)
@@ -78,6 +80,10 @@ greet() {
                 ;;
             --uppercase)
                 uppercase=true
+                shift
+                ;;
+            --random)
+                random=true
                 shift
                 ;;
             *)
@@ -89,7 +95,12 @@ greet() {
     local i
     for ((i=1; i<=count; i++)); do
         local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
-        local message="Hello, ${name}! [${timestamp}]"
+        local greeting="Hello"
+        if [[ "$random" == "true" ]]; then
+            local greetings=("Hello" "Hi" "Hey" "Greetings")
+            greeting="${greetings[$RANDOM % 4]}"
+        fi
+        local message="${greeting}, ${name}! [${timestamp}]"
         if [[ "$uppercase" == "true" ]]; then
             message=$(echo "$message" | tr '[:lower:]' '[:upper:]')
         fi
