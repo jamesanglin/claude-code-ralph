@@ -1,4 +1,4 @@
-# RALPH
+# Claude-Code-Ralph
 
 Autonomous development loop framework for Claude Code.
 
@@ -41,12 +41,12 @@ With `--afk`, RALPH runs fully autonomously using Claude's `--dangerously-skip-p
 
 ### Key Files
 
-| File | Purpose |
-|------|---------|
-| `ralph.sh` | Main loop orchestrator |
-| `ralph-prompt.md` | Instructions template for Claude |
-| `prd.json` | Product requirements with stories |
-| `progress.txt` | Development log across iterations |
+| File              | Purpose                           |
+| ----------------- | --------------------------------- |
+| `ralph.sh`        | Main loop orchestrator            |
+| `ralph-prompt.md` | Instructions template for Claude  |
+| `prd.json`        | Product requirements with stories |
+| `progress.txt`    | Development log across iterations |
 
 ## PRD Format
 
@@ -63,39 +63,37 @@ Stories in `prd.json` follow this structure:
       "description": "Full requirements",
       "priority": 1,
       "passes": false,
-      "steps": [
-        { "text": "Verification step", "passed": false }
-      ]
+      "steps": [{ "text": "Verification step", "passed": false }]
     }
   ]
 }
 ```
 
-| Field | Description |
-|-------|-------------|
-| `id` | Unique story identifier |
-| `title` | Short description |
-| `description` | Full requirements |
-| `priority` | Lower number = higher priority |
-| `passes` | `false` = incomplete, `true` = done |
-| `steps` | Verification checklist with individual completion tracking |
+| Field         | Description                                                |
+| ------------- | ---------------------------------------------------------- |
+| `id`          | Unique story identifier                                    |
+| `title`       | Short description                                          |
+| `description` | Full requirements                                          |
+| `priority`    | Lower number = higher priority                             |
+| `passes`      | `false` = incomplete, `true` = done                        |
+| `steps`       | Verification checklist with individual completion tracking |
 
 ## Configuration
 
 ### Environment Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `MAX_ITERATIONS` | 50 | Maximum loop iterations |
-| `MAX_NO_PROGRESS` | 3 | Exit after N iterations with no progress |
-| `SLEEP_BETWEEN` | 2 | Seconds between iterations |
+| Variable          | Default | Description                              |
+| ----------------- | ------- | ---------------------------------------- |
+| `MAX_ITERATIONS`  | 50      | Maximum loop iterations                  |
+| `MAX_NO_PROGRESS` | 3       | Exit after N iterations with no progress |
+| `SLEEP_BETWEEN`   | 2       | Seconds between iterations               |
 
 ### Command-Line Flags
 
-| Flag | Description |
-|------|-------------|
-| `--afk` | Run in AFK mode (fully autonomous, skips permission prompts) |
-| `--help` | Display usage information |
+| Flag     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| `--afk`  | Run in AFK mode (fully autonomous, skips permission prompts) |
+| `--help` | Display usage information                                    |
 
 ### Example
 
