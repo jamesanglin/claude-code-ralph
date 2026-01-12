@@ -7,11 +7,11 @@
       "title": "Create hello world script",
       "description": "Create a simple hello.sh script that prints 'Hello, RALPH!'",
       "priority": 1,
-      "passes": true,
+      "passes": false,
       "steps": [
-        { "text": "hello.sh file exists", "passed": true },
-        { "text": "Script is executable (chmod +x)", "passed": true },
-        { "text": "Running ./hello.sh prints 'Hello, RALPH!'", "passed": true }
+        { "text": "hello.sh file exists", "passed": false },
+        { "text": "Script is executable (chmod +x)", "passed": false },
+        { "text": "Running ./hello.sh prints 'Hello, RALPH!'", "passed": false }
       ]
     },
     {
@@ -19,11 +19,11 @@
       "title": "Add greeting function",
       "description": "Add a greet() function to hello.sh that takes a name parameter and prints 'Hello, {name}!'",
       "priority": 2,
-      "passes": true,
+      "passes": false,
       "steps": [
-        { "text": "greet() function exists in hello.sh", "passed": true },
-        { "text": "greet 'World' outputs 'Hello, World!'", "passed": true },
-        { "text": "greet 'Alice' outputs 'Hello, Alice!'", "passed": true }
+        { "text": "greet() function exists in hello.sh", "passed": false },
+        { "text": "greet 'World' outputs 'Hello, World!'", "passed": false },
+        { "text": "greet 'Alice' outputs 'Hello, Alice!'", "passed": false }
       ]
     },
     {
@@ -31,155 +31,11 @@
       "title": "Add timestamp to greeting",
       "description": "Modify the greet function to include the current timestamp in the output",
       "priority": 3,
-      "passes": true,
+      "passes": false,
       "steps": [
-        { "text": "greet function includes timestamp in output", "passed": true },
-        { "text": "Timestamp format is human-readable", "passed": true },
-        { "text": "Running greet 'Test' shows current time", "passed": true }
-      ]
-    },
-    {
-      "id": "4",
-      "title": "Add farewell function",
-      "description": "Add a farewell() function to hello.sh that takes a name parameter and prints 'Goodbye, {name}! See you soon.'",
-      "priority": 4,
-      "passes": true,
-      "steps": [
-        { "text": "farewell() function exists in hello.sh", "passed": true },
-        { "text": "farewell 'World' outputs 'Goodbye, World! See you soon.'", "passed": true },
-        { "text": "farewell 'Alice' outputs 'Goodbye, Alice! See you soon.'", "passed": true }
-      ]
-    },
-    {
-      "id": "5",
-      "title": "Add color support",
-      "description": "Add color output support to hello.sh. Greetings should be green, farewells should be yellow. Add a --no-color flag to disable colors.",
-      "priority": 5,
-      "passes": true,
-      "steps": [
-        { "text": "greet output is green when run in terminal", "passed": true },
-        { "text": "farewell output is yellow when run in terminal", "passed": true },
-        { "text": "Running with --no-color flag disables colors", "passed": true }
-      ]
-    },
-    {
-      "id": "6",
-      "title": "Add help command",
-      "description": "Add a --help flag to hello.sh that displays usage information showing all available functions and flags.",
-      "priority": 6,
-      "passes": true,
-      "steps": [
-        { "text": "Running ./hello.sh --help displays usage information", "passed": true },
-        { "text": "Help text lists greet and farewell functions", "passed": true },
-        { "text": "Help text mentions --no-color flag", "passed": true }
-      ]
-    },
-    {
-      "id": "7",
-      "title": "Add logging to file",
-      "description": "Add a --log flag that appends all greetings and farewells to a hello.log file with timestamps.",
-      "priority": 7,
-      "passes": true,
-      "steps": [
-        { "text": "Running greet with --log creates/appends to hello.log", "passed": true },
-        { "text": "Log entries include timestamp and message", "passed": true },
-        { "text": "farewell with --log also logs to hello.log", "passed": true }
-      ]
-    },
-    {
-      "id": "8",
-      "title": "Add count flag",
-      "description": "Add a --count N flag that repeats the greeting or farewell N times.",
-      "priority": 8,
-      "passes": true,
-      "steps": [
-        { "text": "greet 'World' --count 3 outputs the greeting 3 times", "passed": true },
-        { "text": "farewell 'World' --count 2 outputs the farewell 2 times", "passed": true },
-        { "text": "Default count is 1 when flag is not provided", "passed": true }
-      ]
-    },
-    {
-      "id": "9",
-      "title": "Add uppercase flag",
-      "description": "Add a --uppercase flag that outputs the greeting or farewell in all uppercase letters.",
-      "priority": 9,
-      "passes": true,
-      "steps": [
-        { "text": "greet 'World' --uppercase outputs 'HELLO, WORLD!'", "passed": true },
-        { "text": "farewell 'World' --uppercase outputs 'GOODBYE, WORLD! SEE YOU SOON.'", "passed": true },
-        { "text": "Flag works combined with other flags like --no-color", "passed": true }
-      ]
-    },
-    {
-      "id": "10",
-      "title": "Add version flag",
-      "description": "Add a --version flag that displays 'hello.sh version 1.0.0'.",
-      "priority": 10,
-      "passes": true,
-      "steps": [
-        { "text": "Running ./hello.sh --version displays 'hello.sh version 1.0.0'", "passed": true },
-        { "text": "Version flag exits immediately without running other commands", "passed": true },
-        { "text": "Help text mentions --version flag", "passed": true }
-      ]
-    },
-    {
-      "id": "11",
-      "title": "Add random greeting mode",
-      "description": "Add a --random flag that picks a random greeting style (Hello/Hi/Hey/Greetings) instead of always using 'Hello'.",
-      "priority": 11,
-      "passes": true,
-      "steps": [
-        { "text": "greet 'World' --random outputs one of: 'Hello, World!', 'Hi, World!', 'Hey, World!', or 'Greetings, World!'", "passed": true },
-        { "text": "Running multiple times with --random produces varied output", "passed": true },
-        { "text": "Help text documents the --random flag", "passed": true }
-      ]
-    },
-    {
-      "id": "12",
-      "title": "Add quiet mode",
-      "description": "Add a --quiet flag that suppresses timestamp output even when timestamps are normally shown.",
-      "priority": 12,
-      "passes": true,
-      "steps": [
-        { "text": "greet 'World' --quiet outputs greeting without timestamp", "passed": true },
-        { "text": "farewell 'World' --quiet outputs farewell without timestamp", "passed": true },
-        { "text": "Help text documents the --quiet flag", "passed": true }
-      ]
-    },
-    {
-      "id": "13",
-      "title": "Add custom delimiter",
-      "description": "Add a --delimiter flag that changes the comma separator to a custom string. Default is ', '.",
-      "priority": 13,
-      "passes": true,
-      "steps": [
-        { "text": "greet 'World' --delimiter ' - ' outputs 'Hello - World!'", "passed": true },
-        { "text": "farewell 'World' --delimiter ': ' outputs 'Goodbye: World! See you soon.'", "passed": true },
-        { "text": "Default delimiter remains ', ' when flag is not used", "passed": true }
-      ]
-    },
-    {
-      "id": "14",
-      "title": "Add batch mode from file",
-      "description": "Add a --file flag that reads names from a file (one per line) and greets/farewells each one.",
-      "priority": 14,
-      "passes": true,
-      "steps": [
-        { "text": "greet --file names.txt greets each name in the file", "passed": true },
-        { "text": "farewell --file names.txt farewells each name in the file", "passed": true },
-        { "text": "Error message shown if file doesn't exist", "passed": true }
-      ]
-    },
-    {
-      "id": "15",
-      "title": "Add JSON output mode",
-      "description": "Add a --json flag that outputs the greeting/farewell as JSON instead of plain text.",
-      "priority": 15,
-      "passes": true,
-      "steps": [
-        { "text": "greet 'World' --json outputs valid JSON with type, name, message, and timestamp fields", "passed": true },
-        { "text": "farewell 'World' --json outputs valid JSON with type 'farewell'", "passed": true },
-        { "text": "JSON output can be piped to jq without errors", "passed": true }
+        { "text": "greet function includes timestamp in output", "passed": false },
+        { "text": "Timestamp format is human-readable", "passed": false },
+        { "text": "Running greet 'Test' shows current time", "passed": false }
       ]
     }
   ]
