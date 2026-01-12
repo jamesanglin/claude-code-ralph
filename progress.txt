@@ -125,3 +125,13 @@ Each Claude session should append its findings here.
 - Files changed: hello.sh (added --quiet flag to greet and farewell, updated show_help), prd.json (updated story 12 status)
 - Notes: Implementation was straightforward following established patterns. Used a conditional to build the message string with or without timestamp based on the quiet flag value.
 
+## Iteration 2026-01-11 (thirteenth iteration)
+- Completed: Story 13 - Add custom delimiter
+- Steps verified:
+  - [x] greet 'World' --delimiter ' - ' outputs 'Hello - World!'
+  - [x] farewell 'World' --delimiter ': ' outputs 'Goodbye: World! See you soon.'
+  - [x] Default delimiter remains ', ' when flag is not used
+- Learned: Added a --delimiter flag to both greet and farewell functions. The implementation follows the same pattern as other function-level flags (--count, --uppercase, --random, --quiet). The delimiter variable defaults to ", " and is used when building the message string. Key change was replacing the hardcoded ", " in the message construction with the ${delimiter} variable.
+- Files changed: hello.sh (added --delimiter flag to greet and farewell, updated show_help), prd.json (updated story 13 status)
+- Notes: The flag takes a string argument (like --count) and defaults to ", " to maintain backward compatibility. Both greet and farewell functions now use the delimiter in their message construction.
+

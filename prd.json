@@ -151,11 +151,11 @@
       "title": "Add custom delimiter",
       "description": "Add a --delimiter flag that changes the comma separator to a custom string. Default is ', '.",
       "priority": 13,
-      "passes": false,
+      "passes": true,
       "steps": [
-        { "text": "greet 'World' --delimiter ' - ' outputs 'Hello - World!'", "passed": false },
-        { "text": "farewell 'World' --delimiter ': ' outputs 'Goodbye: World! See you soon.'", "passed": false },
-        { "text": "Default delimiter remains ', ' when flag is not used", "passed": false }
+        { "text": "greet 'World' --delimiter ' - ' outputs 'Hello - World!'", "passed": true },
+        { "text": "farewell 'World' --delimiter ': ' outputs 'Goodbye: World! See you soon.'", "passed": true },
+        { "text": "Default delimiter remains ', ' when flag is not used", "passed": true }
       ]
     },
     {

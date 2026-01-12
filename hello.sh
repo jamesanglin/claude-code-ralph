@@ -32,10 +32,11 @@ show_help() {
     echo "  farewell NAME [OPTIONS]     Print a farewell message (yellow)"
     echo ""
     echo "Function Options:"
-    echo "  --count N    Repeat the greeting or farewell N times (default: 1)"
-    echo "  --uppercase  Output the message in all uppercase letters"
-    echo "  --random     Pick a random greeting style (Hello/Hi/Hey/Greetings)"
-    echo "  --quiet      Suppress timestamp output"
+    echo "  --count N       Repeat the greeting or farewell N times (default: 1)"
+    echo "  --uppercase     Output the message in all uppercase letters"
+    echo "  --random        Pick a random greeting style (Hello/Hi/Hey/Greetings)"
+    echo "  --quiet         Suppress timestamp output"
+    echo "  --delimiter S   Use custom separator S instead of ', ' (default: ', ')"
     echo ""
     echo "Examples:"
     echo "  ./hello.sh                  # Print 'Hello, RALPH!'"
@@ -73,7 +74,8 @@ greet() {
     local uppercase=false
     local random=false
     local quiet=false
-    # Parse function arguments for --count, --uppercase, --random, and --quiet
+    local delimiter=", "
+    # Parse function arguments for --count, --uppercase, --random, --quiet, and --delimiter
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --count)
@@ -92,6 +94,10 @@ greet() {
                 quiet=true
                 shift
                 ;;
+            --delimiter)
+                delimiter="$2"
+                shift 2
+                ;;
             *)
                 shift
                 ;;
@@ -108,9 +114,9 @@ greet() {
         fi
         local message
         if [[ "$quiet" == "true" ]]; then
-            message="${greeting}, ${name}!"
+            message="${greeting}${delimiter}${name}!"
         else
-            message="${greeting}, ${name}! [${timestamp}]"
+            message="${greeting}${delimiter}${name}! [${timestamp}]"
         fi
         if [[ "$uppercase" == "true" ]]; then
             message=$(echo "$message" | tr '[:lower:]' '[:upper:]')
@@ -132,7 +138,8 @@ farewell() {
     local count=1
     local uppercase=false
     local quiet=false
-    # Parse function arguments for --count, --uppercase, and --quiet
+    local delimiter=", "
+    # Parse function arguments for --count, --uppercase, --quiet, and --delimiter
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --count)
@@ -147,6 +154,10 @@ farewell() {
                 quiet=true
                 shift
                 ;;
+            --delimiter)
+                delimiter="$2"
+                shift 2
+                ;;
             *)
                 shift
                 ;;
@@ -155,7 +166,7 @@ farewell() {
 
     local i
     for ((i=1; i<=count; i++)); do
-        local message="Goodbye, ${name}! See you soon."
+        local message="Goodbye${delimiter}${name}! See you soon."
         if [[ "$uppercase" == "true" ]]; then
             message=$(echo "$message" | tr '[:lower:]' '[:upper:]')
         fi
